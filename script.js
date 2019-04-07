@@ -89,8 +89,10 @@ $("#button-safari").on("click", function(event){
         console.log(giphyReply);
         var giphyResults = giphyReply.data;
 
+        // clearing previous query's gifs
+         $("#animals-gif").empty();
          for (var i = 0; i < giphyResults.length; i++){
-
+            
             // create div tag
             var animalDiv =$("<div>");
 
