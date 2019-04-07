@@ -6,10 +6,6 @@ console.log("Unit-6-HW script.js has started");
 var animalArray = ["Wolf", "Leopard", "Griffin", "Vulkan"];
 
 console.log(animalArray);
-console.log("hi new animal");
-
-
-
 
 //  RENDERING BUTTONS
 
@@ -92,9 +88,15 @@ $("#button-safari").on("click", function(event){
         // clearing previous query's gifs
          $("#animals-gif").empty();
          for (var i = 0; i < giphyResults.length; i++){
-            
+            console.log(giphyResults[i].rating);
             // create div tag
             var animalDiv =$("<div>");
+    
+            //Create and store a p tag for the gif rating
+            var ratingDisplay = $("<p>").text("Rating: "+ giphyResults[i].rating);
+
+            //Displaying the rating;
+            animalDiv.append(ratingDisplay);
 
             // Create and store an img tag for the actual gif
             var animalImage = $("<img>");
@@ -107,12 +109,10 @@ $("#button-safari").on("click", function(event){
 
             // sending the animalDiv to the HTML in the animals-gif div
             $("#animals-gif").prepend(animalDiv);
-        }
+        };
 
     });
-    
-
-    
 });
+
 //Running the renderButtons function to display the initial buttons
-    renderButtons();
+ renderButtons();
