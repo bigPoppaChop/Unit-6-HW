@@ -63,17 +63,51 @@ $("#button-safari").on("click", function(event){
 
 // API QUERY SECTION
 //Create a function that will
-// 0. listen for a click event on any of the animal buttons
+// 0. listen for a click event on any button with a class "animal-btn"
 // 1. Query the giphy API
 // 2. store the data that is sent back
 // 3. pull from that data to generate HTML code
- $("#animal-btn").on("click", function() {
+ $(document).on("click", ".animal-btn", function() {
 
     // Storing the value of the button that gets clicked
     // The button will be generated in a later function
     //  and will be given a "data-animal" value then
     var animalQuery = $(this).attr("data-animal");
     console.log(animalQuery);
+
+    // Creating the API query URL
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + animalQuery +"&api_key=9N8YbIJXH526aE36hCaIkdJwoXFug7Zr&limit=10";
+    console.log(queryURL);
+
+    // Running the Ajax function
+     $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(giphyReply){
+
+        // console logging giphyReply
+        console.log(giphyReply);
+        var giphyResults = giphyReply.data;
+
+         for (var i = 0; i < giphyResults.length; i++){
+
+            // create div tag
+            var animalDiv =$("<div>");
+
+            // Create and store an img tag for the actual gif
+            var animalImage = $("<img>");
+            
+            //setting the img tag's src attr based on info from the API response
+            animalImage.attr("src", giphyResults[i].images.fixed_height.url);
+
+            //append the img tag to animalDiv
+            animalDiv.append(animalImage);
+
+            // sending the animalDiv to the HTML in the animals-gif div
+            $("#animals-gif").prepend(animalDiv);
+        }
+
+    });
     
 
     
